@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site", "Site\Site.csproj", "{94D142F1-798C-44CF-B129-86F3AF6A0AA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Site", "Site\Site.csproj", "{94D142F1-798C-44CF-B129-86F3AF6A0AA2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alex.IDP", "Alex.IDP\Alex.IDP.csproj", "{9ED1EDD8-FE66-46FC-A33E-BB3FB98EDC4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsCore", "SettingsCore\SettingsCore.csproj", "{D142B917-A2AE-4192-93C7-3AA9CD64786B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9ED1EDD8-FE66-46FC-A33E-BB3FB98EDC4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ED1EDD8-FE66-46FC-A33E-BB3FB98EDC4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ED1EDD8-FE66-46FC-A33E-BB3FB98EDC4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D142B917-A2AE-4192-93C7-3AA9CD64786B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D142B917-A2AE-4192-93C7-3AA9CD64786B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D142B917-A2AE-4192-93C7-3AA9CD64786B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D142B917-A2AE-4192-93C7-3AA9CD64786B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

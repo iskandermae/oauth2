@@ -1,8 +1,14 @@
 ﻿using System.Diagnostics;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Site.Models;
 
 namespace Site.Controllers {
+
+    [Authorize]
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
 
@@ -10,12 +16,22 @@ namespace Site.Controllers {
             _logger = logger;
         }
 
-        public IActionResult Index() {
+        public async Task<IActionResult> Index() {
+            await LogIdentity();
             return View();
         }
 
         public IActionResult Privacy() {
             return View();
+        }
+
+        private async Task LogIdentity() {
+            string? identityToken = await HttpContext
+                .GetTokenAsync(OpenIdConnectParameterNames.IdToken);
+            Debug.WriteLine($"Identity token: {identityToken}");
+            foreach (Claim claim in User.Claims) {
+                Debug.WriteLine($"Clime type: {claim.Type} - Claim value: {claim.Value}");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

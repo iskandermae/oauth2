@@ -1,12 +1,17 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Net.Http.Headers;
+
 namespace Site {
     public class Program {
         public static void Main(string[] args) {
             var builder = WebApplication.CreateBuilder(args);
-
+            
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            ConfigureServices(builder.Services);
+            WebApplication app = builder.Build();
+            app.Urls.Add(SettingsCore.Settings.Site_applicationUrl);
 
-            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment()) {
@@ -19,7 +24,7 @@ namespace Site {
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
@@ -27,6 +32,35 @@ namespace Site {
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+        }
+
+        private static void ConfigureServices(IServiceCollection services) {
+            services.AddControllersWithViews();
+
+            // HttpClient used for accessing API
+            services.AddHttpClient("APIClient", client => {
+                client.BaseAddress = new Uri("");
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            });
+
+            services.AddAuthentication(options => {
+                        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                    })
+                    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options => {
+                        options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                        options.Authority = SettingsCore.Settings.IPD_applicationUrl;
+                        options.ClientId = SettingsCore.Settings.Site_ClientId;
+                        options.ResponseType = "code";
+                        options.UsePkce = false;
+                        //options.CallbackPath = new PathString(); // use default value which is ".../signin-oidc"
+                        options.Scope.Add("openid");
+                        options.Scope.Add("profile");
+                        options.SaveTokens = true;
+                        options.ClientSecret = SettingsCore.Settings.Site_secret;
+                    });
         }
     }
 }

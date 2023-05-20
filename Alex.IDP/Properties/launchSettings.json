@@ -5,7 +5,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:7011"
+      "//applicationUrl": "https://localhost:7011 {overwritten by SettingsCore project}"
     }
   }
 }

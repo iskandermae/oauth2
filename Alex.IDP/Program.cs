@@ -55,6 +55,7 @@ namespace Alex.IDP
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls(SettingsCore.Settings.IPD_applicationUrl);
                 });
     }
 }
