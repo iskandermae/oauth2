@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -23,6 +25,14 @@ namespace Site.Controllers {
 
         public IActionResult Privacy() {
             return View();
+        }
+
+        public async Task Logout() {
+            // clear cookie
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // sign out of Identity provider - this redirects user to Identity provider user interface end-session endpoint, so it can clear it's cookie
+            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
 
         private async Task LogIdentity() {

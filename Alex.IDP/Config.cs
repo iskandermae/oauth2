@@ -26,9 +26,13 @@ namespace Alex.IDP
             {new Client{
                     ClientName = "YesNo Game",
                     ClientId = SettingsCore.Settings.Site_ClientId,
+                    // AlwaysIncludeUserClaimsInIdToken = true,  // bad approach - better to keep identity token smaller (no issues with long uri) - better use UserInfo endpoint on IDP
                     AllowedGrantTypes = GrantTypes.Code,
                     RedirectUris = new List<string> {
                         $"{SettingsCore.Settings.Site_applicationUrl}/signin-oidc"
+                    },
+                    PostLogoutRedirectUris = new List<string> {
+                        $"{SettingsCore.Settings.Site_applicationUrl}/signout-callback-oidc"
                     },
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
