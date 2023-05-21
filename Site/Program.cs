@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Net.Http.Headers;
@@ -5,6 +6,7 @@ using Microsoft.Net.Http.Headers;
 namespace Site {
     public class Program {
         public static void Main(string[] args) {
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // avoid default claims mapping (from JWT-token to User.Claims) - example: use "sub" as UserId
             var builder = WebApplication.CreateBuilder(args);
             
             // Add services to the container.
