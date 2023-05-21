@@ -56,10 +56,12 @@ namespace Site {
                         options.ResponseType = "code";
                         //options.UsePkce = true;  // true is default value
                         //options.CallbackPath = new PathString(); // use default value which is ".../signin-oidc"
+                        //options.SignedOutCallbackPath =   // also used default uri ".../signout-callback-oidc"
                         options.Scope.Add("openid");
                         options.Scope.Add("profile");
                         options.SaveTokens = true;
                         options.ClientSecret = SettingsCore.Settings.Site_secret;
+                        options.GetClaimsFromUserInfoEndpoint = true;
                     });
         }
     }
