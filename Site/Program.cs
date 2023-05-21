@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Net.Http.Headers;
@@ -61,6 +62,8 @@ namespace Site {
                         //options.SignedOutCallbackPath =   // also used default uri ".../signout-callback-oidc"
                         options.Scope.Add("openid");
                         options.Scope.Add("profile");
+                        options.ClaimActions.Remove("nbf"); // removes action that delete "nbf" (not before) claim (so it will be actually sent to client)
+                        options.ClaimActions.DeleteClaim("sid"); // delete "session id" claim from response to client
                         options.SaveTokens = true;
                         options.ClientSecret = SettingsCore.Settings.Site_secret;
                         options.GetClaimsFromUserInfoEndpoint = true;
