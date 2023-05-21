@@ -54,7 +54,7 @@ namespace Site {
                         options.Authority = SettingsCore.Settings.IPD_applicationUrl;
                         options.ClientId = SettingsCore.Settings.Site_ClientId;
                         options.ResponseType = "code";
-                        options.UsePkce = false;
+                        //options.UsePkce = true;  // true is default value
                         //options.CallbackPath = new PathString(); // use default value which is ".../signin-oidc"
                         options.Scope.Add("openid");
                         options.Scope.Add("profile");

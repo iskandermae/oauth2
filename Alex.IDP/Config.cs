@@ -34,7 +34,7 @@ namespace Alex.IDP
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                     },
-                    RequirePkce = false,
+                    //RequirePkce = true, // true is default value
                     ClientSecrets = {new Secret(SettingsCore.Settings.Site_secret.Sha256())},
                     RequireConsent = true  //todo: delete
                 }
